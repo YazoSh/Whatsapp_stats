@@ -1,14 +1,14 @@
 document.getElementById('gbutton').addEventListener('click', function(){
 	path = document.getElementById('get-path').value;
-	getAPI('http://localhost:8000/' + path, function(data){
+	getAPI('http://localhost:8000/api' + path, function(data){
 		console.log(data);
 	});
 });
 
 document.getElementById('pbutton').addEventListener('click', function(){
-	var blob = document.getElementById('chatfile').files[0];
+	var file = document.getElementById('chatfile').files[0];
 
-	blob.text().then(text => postAPI('http://localhost:8000/', text, function(text){
-		console.log(text);
-	}));
+	postAPI('http://localhost:8000/api', file, function(data){
+		console.log(data);
+	});
 });
