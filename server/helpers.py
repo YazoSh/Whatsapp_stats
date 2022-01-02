@@ -30,16 +30,14 @@ def findDateInData(date, data):
 	return None
 
 
-def sendData(type, file):
-	if type == 'path':
-		file = open(file, "r")
-	elif type == 'raw':
-		file = iter(file.splitlines())
-		
+def sendData(file):
 	line_count = 0
 	usersCount = {}
 	data = []
 	for line in file:
+		if type(line) is bytes:
+			line = line.decode("utf-8")
+			
 		if startsWithDateAndTime(line):
 			dateOfMsg = getDateOfMessage(line)
 			user = getName(line)
@@ -61,6 +59,4 @@ def sendData(type, file):
 				usersCount[user] += 1
 			except KeyError:
 				usersCount[user] = 1
-	if type == 'path':
-		file.close()
 	return data
